@@ -1,5 +1,11 @@
 """
 Output twitter stream of "https://stream.twitter.com/1/statuses/sample.json"
+
+Need: 
+  oauth2 library: https://pypi.python.org/pypi/oauth2/
+  Twitter credentials: https://apps.twitter.com/
+
+$ python twitterstream.py > output.txt
 """
 
 import oauth2 as oauth
