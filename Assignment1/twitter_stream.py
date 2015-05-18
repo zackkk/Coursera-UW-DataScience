@@ -6,6 +6,8 @@ Explanation:
     Dependencies:
         oauth2 library: https://pypi.python.org/pypi/oauth2/
         Twitter credentials: https://apps.twitter.com/
+
+Example:
     $ python twitterstream.py > output.txt
 """
 
