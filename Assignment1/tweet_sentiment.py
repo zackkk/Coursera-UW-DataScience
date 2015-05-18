@@ -15,32 +15,17 @@ Explanation:
     simplejson: https://pypi.python.org/pypi/simplejson/
         install: $python setup.py install
 
-    $ python tweet_sentiment.py AFINN-111.txt output.txt   # output.txt is the input txt file
+Example:
+    $ python  tweet_sentiment.py  AFINN-111.txt  output.txt
+    # output.txt is the input txt file name
 """
 
-import sys
 import json
-import simplejson
+import re # regular expression
+import sys
 
 sentiment_dictionary = {}
 tweet_lines = {}
-
-def parse_sentiment_file(sf):
-    for line in sf:
-        term, score = line.split("\t")
-        sentiment_dictionary[term] = int(score)
-
-
-def parse_tweet_file(tf):
-    for line in tf:
-        # eliminate non-ascii and zero chars
-        line =  "".join(i for i in line if ord(i) < 128 and ord(i) > 0) 
-        
-        if is_json(line) == True:
-            
-
-def lines(fp):
-    print str(len(fp.readlines()))
 
 def is_json(js):
     try:
@@ -49,6 +34,27 @@ def is_json(js):
         return False
     return True
 
+def parse_sentiment_file(sf):
+    for line in sf:
+        term, score = line.split("\t")
+        sentiment_dictionary[term] = int(score)
+
+def parse_tweet_file(tf):
+    # Iterate all tweets in the file
+    for line in tf:
+
+        #The sentiment of a tweet is equivalent to the sum of the sentiment scores for each term in the tweet
+        sum = 0
+
+        # Eliminate non-ascii and zero chars for json.loads
+        line =  "".join(i for i in line if ord(i) < 128 and ord(i) > 0)
+
+        if is_json(line) == True:
+            words = re.findall("[a-z]+", line) # regular expression find all words
+            for word in words:
+                if word in sentiment_dictionary:
+                    sum = sum + sentiment_dictionary[word]
+        print sum
 
 def main():
     sentiment_file = open(sys.argv[1])
@@ -56,14 +62,6 @@ def main():
 
     parse_sentiment_file(sentiment_file)
     parse_tweet_file(tweet_file)
-
-    
-    
-
-    
-
-
-    #print sentiment_dictionary.items()
 
 if __name__ == '__main__':
     main()
