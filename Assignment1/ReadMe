@@ -1,6 +1,6 @@
 Twitter Sentiment Analysis in Python:
-	1. Access the twitter Application Programming Interface(API) using python
-	2. Estimate the public's perception (the sentiment) of a particular term or phrase
+	1. Access the twitter Application Programming Interface(API) using python - twitter_stream.py
+	2. Estimate the public's perception (the sentiment) of a particular term or phrase - twitter_sentiment.py
 	3. Analyze the relationship between location and mood based on a sample of twitter data
 
 
